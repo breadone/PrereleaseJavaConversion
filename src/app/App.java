@@ -7,13 +7,6 @@ import java.util.function.Function;
 import java.time.LocalDateTime; 
 
 public class App {
-
-    public class Customer {
-        String name, email, id;
-        boolean ActiveStatus;
-      }
-
-
     public static void main()  {
         String selection;
 
@@ -56,7 +49,8 @@ public class App {
         if (MemberInput == "y") {ActiveStatus = true;}
         if (MemberInput == "n") {ActiveStatus = false;}
 
-        //System.out.println(GenerateID(name, email, JoinMonth));
+        id = GenerateID(name, email, JoinMonth);
+
 
     }
     
