@@ -7,6 +7,13 @@ import java.util.function.Function;
 import java.time.LocalDateTime; 
 
 public class App {
+
+    public class Customer {
+        String name, email, id;
+        boolean ActiveStatus;
+      }
+
+
     public static void main()  {
         String selection;
 
