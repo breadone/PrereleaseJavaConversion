@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Member;
 
 public class App {
     public static void main(String[] args)  {
@@ -44,28 +45,39 @@ public class App {
         LocalDateTime now = LocalDateTime.now(); 
         NewCustomer.JoinMonth = dtf.format(now);
 
-        System.out.println("enter your first and last name: ");
+        System.out.print("enter your first and last name: ");
         NewCustomer.name = System.console().readLine();
 
-        System.out.println("enter your email address: ");
+        System.out.print("enter your email address: ");
         NewCustomer.email = System.console().readLine();
 
         while (Validate(NewCustomer.email) == false) {
-            System.out.println("invalid email. please try again: ");
+            System.out.print("invalid email. please try again: ");
             NewCustomer.email = System.console().readLine();
         }
 
-        System.out.println("do you want to buy a membership?: ");
+        System.out.print("do you want to buy a membership?: ");
         MemberInput = System.console().readLine();
-        if (MemberInput == "y") {NewCustomer.ActiveStatus = true;}
-        if (MemberInput == "n") {NewCustomer.ActiveStatus = false;}
+
+        switch (MemberInput) {
+            case "y": 
+                NewCustomer.ActiveStatus = true;
+            case "n":
+                NewCustomer.ActiveStatus = false;
+        }
+
+       // if (MemberInput == "y") {NewCustomer.ActiveStatus = true;}
+       // if (MemberInput == "n") {NewCustomer.ActiveStatus = false;}
+        System.out.println(NewCustomer.ActiveStatus);
+        
 
         NewCustomer.id = GenerateID(NewCustomer.name, NewCustomer.email, NewCustomer.JoinMonth);
 
-        WriteToFile(NewCustomer.name, NewCustomer.email, NewCustomer.JoinMonth, NewCustomer.id);
+        WriteToFile(NewCustomer.id, NewCustomer.name, NewCustomer.email, NewCustomer.JoinMonth, NewCustomer.ActiveStatus);
     }
     
     public static void SearchMembers() {
+        
         
     }
 
@@ -73,21 +85,20 @@ public class App {
         
     }
 
-    public static void WriteToFile(String name, String email, String JoinMonth, String id) {
+    public static void WriteToFile(String name, String email, String JoinMonth, String id, boolean ActiveStatus) {
         try {
-            FileWriter WriteCustomerRecord = new FileWriter("record.txt");
-            WriteCustomerRecord.append(name.toString() + "!" + email.toString() + "!" + JoinMonth.toString() + "!" +id + "\n");
+            FileWriter WriteCustomerRecord = new FileWriter("record.txt", true);
+            WriteCustomerRecord.write(id + "!" + name + "!" + email + "!" + JoinMonth + "!" + ActiveStatus + "\n");
             WriteCustomerRecord.close();
             System.out.println("succesfully added customer");
         } catch (IOException e) {
             System.out.println("An error occured while writing to the file.");
         }
-
     }
 
     public static String GenerateID(String name, String email, String JoinMonth) {
         String ID, letter;
-        int[] num = {0, 0, 0, 0};
+        int num[] = new int[4];
         Random rnd = new Random();
 
         for (int i =0; i<=3; i++) {
@@ -103,12 +114,8 @@ public class App {
 
     public static boolean Validate(String email) {
         int LengthOfEmail = email.length();
-        char[] letters = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        char letters[] = new char[LengthOfEmail];
         boolean ValidAt = false, ValidDot = false;
-
-      /*  for (int i = 0; i <= 100; i++) {
-            letters[i] = ' ';
-        }*/
         
         for (int i = 0; i <= LengthOfEmail -1 ; i++) {
             letters[i] = email.charAt(i);
