@@ -1,6 +1,6 @@
 package app;
 
-import java.io.Console;
+//import java.io.Console;
 
 public class Customer {
     String name, email, id, JoinMonth;
