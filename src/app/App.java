@@ -23,18 +23,21 @@ public class App {
         System.out.println("#################  by Pradyun Setti  ####################");
         System.out.println("#########################################################");
 
-        System.out.println("\n 1. add new member\n 2. search for member\n 3. membership ending month");
+        System.out.println("1. add new member\n 2. search for member\n 3. membership ending month");
 
-        System.out.println("what action would you like to perform?: ");
+        System.out.print("what action would you like to perform?: ");
         selection = System.console().readLine();
 
         switch(selection) {
             case "1":
                 AddNewMember();
+                break;
             case "2":
                 SearchMembers();
+                break;
             case "3":
                 EndingMonth();
+                break;
         }
     }
 
@@ -62,12 +65,17 @@ public class App {
         switch (MemberInput) {
             case "y": 
                 NewCustomer.ActiveStatus = true;
+                break;
             case "n":
                 NewCustomer.ActiveStatus = false;
+                break;
+            default:
+                System.out.println("no input detected, ur paying.");
+                break;
         }
 
-       // if (MemberInput == "y") {NewCustomer.ActiveStatus = true;}
-       // if (MemberInput == "n") {NewCustomer.ActiveStatus = false;}
+        //if (MemberInput == "y") {NewCustomer.ActiveStatus = true;}
+        //if (MemberInput == "n") {NewCustomer.ActiveStatus = false;}
         System.out.println(NewCustomer.ActiveStatus);
         
 
